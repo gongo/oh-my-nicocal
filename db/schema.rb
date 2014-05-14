@@ -11,11 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514121150) do
+ActiveRecord::Schema.define(version: 20140514135617) do
 
   create_table "moods", force: true do |t|
     t.string  "name"
     t.integer "score"
+  end
+
+  create_table "reports", force: true do |t|
+    t.integer  "mood_id"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
