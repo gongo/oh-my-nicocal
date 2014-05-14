@@ -5,8 +5,11 @@ describe Mood do
     @mood = Mood.new(name: 'happiness', score: 10)
   end
 
+  subject { @mood }
+
+  it { should respond_to(:reports) }
+
   describe '#save' do
-    subject { @mood }
     it { should be_valid }
 
     context 'when name is not present' do
