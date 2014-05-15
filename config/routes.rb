@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Nicocal::API => '/'
+  mount Nicocal::API => '/api'
 end
