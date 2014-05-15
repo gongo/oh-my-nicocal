@@ -5,10 +5,11 @@ describe Nicocal::API do
     context 'when given date and mood_id' do
       let(:mood) { Mood.create(name: 'happiness', score: 100) }
 
-      it 'save successfully report of day' do
+      it 'save successfully report of day, and return create report' do
         expect {
           put '/api/reports/19930224', { mood_id: mood.id }
         }.to change(Report, :count).by(1)
+        expect(JSON.parse(response.body)).to have_key 'report'
       end
 
       context 'and mood is already registered on date' do
@@ -16,10 +17,11 @@ describe Nicocal::API do
           Report.create(date: '1993-02-24', mood: mood)
         end
 
-        it 'update successfully report of day' do
+        it 'update successfully report of day, and return update report' do
           expect {
             put '/api/reports/19930224', { mood_id: mood.id }
           }.not_to change(Report, :count).by(1)
+          expect(JSON.parse(response.body)).to have_key 'report'
         end
       end
     end
