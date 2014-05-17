@@ -10,5 +10,13 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require angularjs
+//= require jquery
+//= require jquery_ujs
+//= require jquery.ui.draggable
+//= require angular
+//= require angular-ui-calendar
+//= require angular-dragdrop
+//= require fullcalendar
+//
+//= require nicocal
 //= require_tree .

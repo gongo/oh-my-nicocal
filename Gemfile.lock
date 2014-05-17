@@ -27,6 +27,11 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular-dragdrop-rails (1.0.2)
+      angularjs-rails
+      jquery-rails
+      jquery-ui-rails
+    angular-ui-calendar-rails (0.8.1)
     angularjs-rails (1.2.16)
     arel (5.0.1.20140414130214)
     axiom-types (0.1.1)
@@ -49,6 +54,9 @@ GEM
     equalizer (0.0.9)
     erubis (2.7.0)
     execjs (2.0.2)
+    font-awesome-sass (4.1.0)
+      sass (~> 3.2)
+    fullcalendar-rails (1.6.4.0)
     grape (0.7.0)
       activesupport
       builder
@@ -66,6 +74,11 @@ GEM
     jbuilder (2.0.7)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-rails (3.1.0)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.2.1)
+      railties (>= 3.2.16)
     json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -148,10 +161,16 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular-dragdrop-rails
+  angular-ui-calendar-rails
   angularjs-rails
   coffee-rails (~> 4.0.0)
+  font-awesome-sass
+  fullcalendar-rails
   grape
   jbuilder (~> 2.0)
+  jquery-rails
+  jquery-ui-rails
   rails (= 4.1.1)
   rspec-rails
   sass-rails (~> 4.0.3)
