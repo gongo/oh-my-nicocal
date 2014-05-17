@@ -1,16 +1,29 @@
 'use strict'
 
 angular.module('nicocal').controller 'ReportsCtrl', ($scope) ->
-  $scope.onDrop = (date, allDay) ->
+  $scope.events = []
+
+  $scope.moods = {
+    "smile": { color: "forestgreen" }
+    "meh":   { color: "goldenrod" }
+    "frown": { color: "crimson" }
+  }
+
+  $scope.onDrop = (date) ->
+    mood = "frown"
     nicomark = {
       title: ''
       start: date
       backgroundColor: "inherit"
       borderColor: "transparent"
-      textColor: "red"
-      className: ["fa", "fa-meh-o", "fa-2x"]
+      textColor: $scope.moods[mood].color
+      className: ["fa", "fa-" + mood + "-o", "fa-2x"]
     }
-    $scope.NicoNicoCalendar.fullCalendar('renderEvent', nicomark, false);
+    $scope.events.push(nicomark)
+
+  $scope.onClick = (event) ->
+    angular.forEach $scope.events, (value, key) =>
+      $scope.events.splice(key, 1) if $scope.events[key] == event
 
   $scope.uiConfig = {
     calendar: {
@@ -23,7 +36,8 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope) ->
       },
       droppable: true
       drop: $scope.onDrop
+      eventClick: $scope.onClick
     }
   }
 
-  $scope.eventSources = [[]]
+  $scope.eventSources = [$scope.events]
