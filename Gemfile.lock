@@ -38,6 +38,8 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
     builder (3.2.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -164,6 +166,7 @@ DEPENDENCIES
   angular-dragdrop-rails
   angular-ui-calendar-rails
   angularjs-rails
+  bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 4.0.0)
   font-awesome-sass
   fullcalendar-rails

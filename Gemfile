@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'angularjs-rails'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'angular-ui-calendar-rails'
 gem "angular-dragdrop-rails"
 gem 'fullcalendar-rails'

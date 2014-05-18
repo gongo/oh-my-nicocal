@@ -1,9 +1,12 @@
 'use strict'
 
-angular.module('nicocal').controller 'ReportsCtrl', ($scope) ->
+angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood) ->
   $scope.events = []
 
-  $scope.moods = {
+  Mood.all (moods) ->
+    $scope.moods = moods
+
+  $scope.moodColors = {
     "smile": { color: "forestgreen" }
     "meh":   { color: "goldenrod" }
     "frown": { color: "crimson" }
@@ -16,7 +19,7 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope) ->
       start: date
       backgroundColor: "inherit"
       borderColor: "transparent"
-      textColor: $scope.moods[mood].color
+      textColor: $scope.moodColors[mood].color
       className: ["fa", "fa-" + mood + "-o", "fa-2x"]
     }
     $scope.events.push(nicomark)
