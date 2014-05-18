@@ -1,5 +1,9 @@
 @import "bootstrap";
 
+.moods i:hover {
+  cursor: pointer;
+}
+
 .mood-positive {
   color: forestgreen;
 }
