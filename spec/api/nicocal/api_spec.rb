@@ -56,6 +56,29 @@ describe Nicocal::API do
     end
   end
 
+  describe "DELETE /api/reports/:year/:month/:day" do
+    context 'when given date and mood_id' do
+      before do
+        mood = Mood.create(name: 'happiness', score: 100)
+        Report.create(date: '1993-02-24', mood: mood)
+      end
+
+      it 'delete successfully report of day' do
+        expect {
+          delete '/api/reports/1993/02/24'
+        }.to change(Report, :count).by(-1)
+      end
+    end
+
+    context 'when given mood id does not exist' do
+      before { put '/api/reports/1993/02/24', { mood_id: 1 } }
+      it 'returns code `400` and detail error message' do
+        expect(response).not_to be_success
+        expect(JSON.parse(response.body)).to have_key 'error'
+      end
+    end
+  end
+
   describe 'GET /api/moods' do
     before { get '/api/moods' }
 

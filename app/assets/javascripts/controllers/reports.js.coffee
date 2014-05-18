@@ -25,6 +25,7 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
   $scope.removeReport = (report) ->
     angular.forEach $scope.reports, (value, key) ->
       $scope.reports.splice(key, 1) if angular.equals(value, report)
+    Report.delete(report)
 
   $scope.onDrop = (date) ->
     mood = {
