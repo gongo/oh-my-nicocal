@@ -44,4 +44,15 @@ describe Nicocal::API do
       end
     end
   end
+
+  describe 'GET /api/moods' do
+    before { get '/api/moods' }
+
+    it 'returns moods' do
+      expect(response).to be_success
+
+      body = JSON.parse(response.body)
+      expect(body['moods']).to be_a Array
+    end
+  end
 end

@@ -28,5 +28,11 @@ module Nicocal
         { report: report }
       end
     end
+
+    resources :moods do
+      get do
+        { moods: Mood.all }
+      end
+    end
   end
 end
