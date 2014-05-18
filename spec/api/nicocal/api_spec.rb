@@ -12,13 +12,13 @@ describe Nicocal::API do
     end
   end
 
-  describe "PUT /api/reports/:yyyymmdd" do
+  describe "PUT /api/reports/:year/:month/:day" do
     context 'when given date and mood_id' do
       let(:mood) { Mood.create(name: 'happiness', score: 100) }
 
       it 'save successfully report of day, and return create report' do
         expect {
-          put '/api/reports/19930224', { mood_id: mood.id }
+          put '/api/reports/1993/02/24', { mood_id: mood.id }
         }.to change(Report, :count).by(1)
         expect(JSON.parse(response.body)).to have_key 'report'
       end
@@ -30,7 +30,7 @@ describe Nicocal::API do
 
         it 'update successfully report of day, and return update report' do
           expect {
-            put '/api/reports/19930224', { mood_id: mood.id }
+            put '/api/reports/1993/02/24', { mood_id: mood.id }
           }.not_to change(Report, :count).by(1)
           expect(JSON.parse(response.body)).to have_key 'report'
         end
@@ -38,17 +38,17 @@ describe Nicocal::API do
     end
 
     context 'when given invalid date' do
-      before { put '/api/reports/123456' }
+      before { put '/api/reports/1234/foo/56' }
       it { expect(response).not_to be_success }
     end
 
     context 'when given invalid mood id' do
-      before { put '/api/reports/19930224', { mood_id: 'foo' } }
+      before { put '/api/reports/1993/02/24', { mood_id: 'foo' } }
       it { expect(response).not_to be_success }
     end
 
     context 'when given mood id does not exist' do
-      before { put '/api/reports/19930224', { mood_id: 1 } }
+      before { put '/api/reports/1993/02/24', { mood_id: 1 } }
       it 'returns code `400` and detail error message' do
         expect(response).not_to be_success
         expect(JSON.parse(response.body)).to have_key 'error'

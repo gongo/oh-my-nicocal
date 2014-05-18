@@ -22,15 +22,17 @@ module Nicocal
 
       desc 'Update mood of day'
       params do
-        requires :yyyymmdd, type: String, regexp: /^\d{8}$/
+        requires :year,    type: String, regexp: /^\d{4}$/
+        requires :month,   type: String, regexp: /^\d{2}$/
+        requires :day,     type: String, regexp: /^\d{2}$/
         requires :mood_id, type: Integer
       end
-      put ':yyyymmdd' do
+      put ':year/:month/:day' do
         unless Mood.exists?(params[:mood_id])
           error! 'Specified mood id that does not exist', 400
         end
 
-        date = params[:yyyymmdd].to_date
+        date = Date.new(params[:year].to_i, params[:month].to_i, params[:day].to_i)
         report = Report.find_or_initialize_by(date: date)
         report.mood_id = params[:mood_id]
         report.save!
