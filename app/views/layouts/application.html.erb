@@ -7,7 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="nicocal">
-  <div ng-controller="ReportsCtrl">
+  <nav class="navbar navbar-default">
+    <div class="navbar-header">
+      <span class="navbar-brand">NicoNicoCalendar</span>
+    </div>
+  </nav>
+
+  <div class="container" ng-controller="ReportsCtrl">
     <%= yield %>
   </div>
 </body>
