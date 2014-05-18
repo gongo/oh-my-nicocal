@@ -36,7 +36,6 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
       start: date
       backgroundColor: "inherit"
       borderColor: "transparent"
-      ignoreTimezone: false
       className: $scope.moodClass(mood)
     }
     $scope.updateReport(report)
@@ -48,12 +47,13 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
     Report.list view.start, (reports) ->
       $scope.reports.length = 0
       angular.forEach reports, (_report) ->
+        date = new Date(_report.date)
+        date.setHours(0)
         report = {
           title: ''
-          start: new Date(_report.date)
+          start: date
           backgroundColor: "inherit"
           borderColor: "transparent"
-          ignoreTimezone: false
           className: $scope.moodClass(_report)
         }
         $scope.reports.push(report)
@@ -67,7 +67,6 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
         center: ''
         right: 'today prev,next'
       },
-      timezone: 'local'
       droppable: true
       drop: $scope.onDrop
       eventClick: $scope.onClick
