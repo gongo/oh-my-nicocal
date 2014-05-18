@@ -15,7 +15,7 @@ class Report < ActiveRecord::Base
     #
     def of(year_and_month)
       date = year_and_month.to_date
-      where(date: date.beginning_of_month..date.end_of_month)
+      where(date: date.beginning_of_month..date.end_of_month).includes(:mood)
     end
   end
 end
