@@ -10,6 +10,16 @@ module Nicocal
     end
 
     resource :reports do
+      desc 'Get reports of year/month'
+      params do
+        requires :year, type: String, regexp: /^\d{4}$/
+        requires :month, type: String, regexp: /^\d{2}$/
+      end
+      get ':year/:month' do
+        year_and_month = params[:year] + '/' + params[:month]
+        { reports: Report.of(year_and_month) }
+      end
+
       desc 'Update mood of day'
       params do
         requires :yyyymmdd, type: String, regexp: /^\d{8}$/

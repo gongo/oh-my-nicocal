@@ -1,6 +1,17 @@
 require 'spec_helper'
 
 describe Nicocal::API do
+  describe 'GET /api/reports/:year/:month' do
+    before { get '/api/reports/1993/02' }
+
+    it 'returns reports' do
+      expect(response).to be_success
+
+      body = JSON.parse(response.body)
+      expect(body['reports']).to be_a Array
+    end
+  end
+
   describe "PUT /api/reports/:yyyymmdd" do
     context 'when given date and mood_id' do
       let(:mood) { Mood.create(name: 'happiness', score: 100) }
