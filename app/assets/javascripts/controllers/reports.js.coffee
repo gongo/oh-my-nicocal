@@ -6,26 +6,29 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood) ->
   Mood.all (moods) ->
     $scope.moods = moods
 
-  $scope.moodColors = {
-    "smile": { color: "forestgreen" }
-    "meh":   { color: "goldenrod" }
-    "frown": { color: "crimson" }
-  }
+  $scope.moodClass = (mood) ->
+    status = switch
+      when mood.score > 0 then 'mood-positive'
+      when mood.score < 0 then 'mood-negative'
+      else 'mood-straight'
+    ["fa", "fa-#{mood.name}-o", "fa-2x", status]
 
   $scope.onDrop = (date) ->
-    mood = "frown"
+    mood = {
+      name: "frown"
+      score: -1
+    }
     nicomark = {
       title: ''
       start: date
       backgroundColor: "inherit"
       borderColor: "transparent"
-      textColor: $scope.moodColors[mood].color
-      className: ["fa", "fa-" + mood + "-o", "fa-2x"]
+      className: $scope.moodClass(mood)
     }
     $scope.events.push(nicomark)
 
   $scope.onClick = (event) ->
-    angular.forEach $scope.events, (value, key) =>
+    angular.forEach $scope.events, (value, key) ->
       $scope.events.splice(key, 1) if $scope.events[key] == event
 
   $scope.uiConfig = {

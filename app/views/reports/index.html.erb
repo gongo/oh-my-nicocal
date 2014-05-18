@@ -1,9 +1,6 @@
-<h1>Reports#index</h1>
-<p>Find me in app/views/reports/index.html.erb</p>
-
-<ul class="list-inline">
+<ul class="list-inline moods">
   <li ng-repeat="mood in moods">
-    <i class="fa fa-{{ mood.name }}-o fa-2x ui-draggable"
+    <i ng-class="moodClass(mood)"
        data-drag="true"
        jqyoui-draggable
        data-jqyoui-options="{revert: 'valid', helper: 'clone'}"></i>
@@ -11,7 +8,6 @@
 </ul>
 
 <div ui-calendar="uiConfig.calendar"
-     class="calendar"
      ng-model="eventSources"
      calendar="NicoNicoCalendar">
 </div>
