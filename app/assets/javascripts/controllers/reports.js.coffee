@@ -20,18 +20,14 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
   $scope.updateReport = (report) ->
     $scope.removeReportOfDate(report.start)
     $scope.reports.push(report)
-    Report.put(report)
 
   $scope.removeReport = (report) ->
     angular.forEach $scope.reports, (value, key) ->
       $scope.reports.splice(key, 1) if angular.equals(value, report)
     Report.delete(report)
 
-  $scope.onDrop = (date) ->
-    mood = {
-      name: "frown"
-      score: -1
-    }
+  $scope.onDrop = (date, allDay, jsEvent) ->
+    mood = angular.element(jsEvent.target).data('mood')
     report = {
       title: ''
       start: date
@@ -40,6 +36,7 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
       className: $scope.moodClass(mood)
     }
     $scope.updateReport(report)
+    Report.put(report, mood.id)
 
   $scope.onClick = (report) ->
     $scope.removeReport(report)

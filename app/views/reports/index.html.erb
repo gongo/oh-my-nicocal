@@ -2,6 +2,7 @@
   <li ng-repeat="mood in moods">
     <i ng-class="moodClass(mood)"
        data-drag="true"
+       data-mood="{{ mood }}"
        jqyoui-draggable
        data-jqyoui-options="{cursor: 'move', revert: 'valid', helper: 'clone'}"></i>
   </li>
