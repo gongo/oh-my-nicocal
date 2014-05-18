@@ -1,6 +1,9 @@
 angular.module('nicocal').factory 'Report', ($http, $filter) ->
   return {
-    list: (year_and_month, callback) ->
+    list: (date, callback) ->
+      year_and_month = $filter('date')(date, 'yyyy/MM')
+      $http.get("/api/reports/#{year_and_month}").success (response) ->
+        callback(response.reports)
 
     put: (report) ->
       mood_id = 1

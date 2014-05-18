@@ -14,6 +14,7 @@ gem "angular-dragdrop-rails"
 gem 'fullcalendar-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'grape'
+gem 'grape-jbuilder'
 gem 'font-awesome-sass'
 
 group :development do

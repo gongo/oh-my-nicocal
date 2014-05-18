@@ -36,12 +36,27 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
       start: date
       backgroundColor: "inherit"
       borderColor: "transparent"
+      ignoreTimezone: false
       className: $scope.moodClass(mood)
     }
     $scope.updateReport(report)
 
   $scope.onClick = (report) ->
     $scope.removeReport(report)
+
+  $scope.onChangeView = (view) ->
+    Report.list view.start, (reports) ->
+      $scope.reports.length = 0
+      angular.forEach reports, (_report) ->
+        report = {
+          title: ''
+          start: new Date(_report.date)
+          backgroundColor: "inherit"
+          borderColor: "transparent"
+          ignoreTimezone: false
+          className: $scope.moodClass(_report)
+        }
+        $scope.reports.push(report)
 
   $scope.uiConfig = {
     calendar: {
@@ -52,9 +67,11 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
         center: ''
         right: 'today prev,next'
       },
+      timezone: 'local'
       droppable: true
       drop: $scope.onDrop
       eventClick: $scope.onClick
+      viewRender: $scope.onChangeView
     }
   }
 
