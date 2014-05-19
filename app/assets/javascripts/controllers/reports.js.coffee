@@ -13,6 +13,15 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
       else 'mood-straight'
     ["fa", "fa-#{mood.name}-o", "fa-2x", status]
 
+  $scope.newReport = (mood, date) ->
+    {
+      title: ''
+      start: date
+      backgroundColor: "inherit"
+      borderColor: "transparent"
+      className: $scope.moodClass(mood)
+    }
+
   $scope.removeReportOfDate = (date) ->
     angular.forEach $scope.reports, (value, key) ->
       $scope.reports.splice(key, 1) if angular.equals(value.start, date)
@@ -28,13 +37,7 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
 
   $scope.onDrop = (date, allDay, jsEvent) ->
     mood = angular.element(jsEvent.target).data('mood')
-    report = {
-      title: ''
-      start: date
-      backgroundColor: "inherit"
-      borderColor: "transparent"
-      className: $scope.moodClass(mood)
-    }
+    report = $scope.newReport(mood, date)
     $scope.updateReport(report)
     Report.put(report, mood.id)
 
@@ -47,14 +50,7 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
       angular.forEach reports, (_report) ->
         date = new Date(_report.date)
         date.setHours(0)
-        report = {
-          title: ''
-          start: date
-          backgroundColor: "inherit"
-          borderColor: "transparent"
-          className: $scope.moodClass(_report)
-        }
-        $scope.reports.push(report)
+        $scope.reports.push($scope.newReport(_report, date))
 
   $scope.uiConfig = {
     calendar: {
