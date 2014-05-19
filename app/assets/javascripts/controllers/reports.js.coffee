@@ -2,6 +2,7 @@
 
 angular.module('nicocal').controller 'ReportsCtrl', ['$scope', 'Mood', 'Report', ($scope, Mood, Report) ->
   $scope.reports = []
+  $scope.reportSources = [$scope.reports]
 
   Mood.all (moods) ->
     $scope.moods = moods
@@ -17,10 +18,15 @@ angular.module('nicocal').controller 'ReportsCtrl', ['$scope', 'Mood', 'Report',
     {
       title: ''
       start: date
+      moodId: mood.id
       backgroundColor: "inherit"
       borderColor: "transparent"
       className: $scope.moodClass(mood)
     }
+
+  #
+  # Report update/delete functions
+  #
 
   $scope.removeReportOfDate = (date) ->
     angular.forEach $scope.reports, (value, key) ->
@@ -29,17 +35,21 @@ angular.module('nicocal').controller 'ReportsCtrl', ['$scope', 'Mood', 'Report',
   $scope.updateReport = (report) ->
     $scope.removeReportOfDate(report.start)
     $scope.reports.push(report)
+    Report.put(report)
 
   $scope.removeReport = (report) ->
     angular.forEach $scope.reports, (value, key) ->
       $scope.reports.splice(key, 1) if angular.equals(value, report)
     Report.delete(report)
 
+  #
+  # Event functions
+  #
+
   $scope.onDrop = (date, allDay, jsEvent) ->
     mood = angular.element(jsEvent.target).data('mood')
     report = $scope.newReport(mood, date)
     $scope.updateReport(report)
-    Report.put(report, mood.id)
 
   $scope.onClick = (report) ->
     $scope.removeReport(report)
@@ -48,6 +58,7 @@ angular.module('nicocal').controller 'ReportsCtrl', ['$scope', 'Mood', 'Report',
     Report.list view.start, (reports) ->
       $scope.reports.length = 0
       angular.forEach reports, (_report) ->
+        # Align to UTC of report date that obtained from API
         date = new Date(_report.date)
         date.setHours(0)
         $scope.reports.push($scope.newReport(_report, date))
@@ -67,6 +78,4 @@ angular.module('nicocal').controller 'ReportsCtrl', ['$scope', 'Mood', 'Report',
       viewRender: $scope.onChangeView
     }
   }
-
-  $scope.eventSources = [$scope.reports]
   ]

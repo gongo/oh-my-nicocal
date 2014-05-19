@@ -5,12 +5,11 @@ angular.module('nicocal').factory 'Report', ['$http', '$filter', ($http, $filter
       $http.get("/api/reports/#{yearAndMonth}").success (response) ->
         callback(response.reports)
 
-    put: (report, moodId) ->
+    put: (report) ->
       date = $filter('date')(report.start, 'yyyy/MM/dd')
-      $http.put("/api/reports/#{date}", { mood_id: moodId })
+      $http.put("/api/reports/#{date}", { mood_id: report.moodId })
 
     delete: (report) ->
       date = $filter('date')(report.start, 'yyyy/MM/dd')
       $http.delete("/api/reports/#{date}")
-  }
-  ]
+  }]

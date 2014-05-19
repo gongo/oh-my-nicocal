@@ -3,5 +3,4 @@ angular.module('nicocal').factory 'Mood', ['$http', ($http) ->
     all: (callback) ->
       $http.get('/api/moods').success (response) ->
           callback(response.moods)
-  }
-  ]
+  }]
