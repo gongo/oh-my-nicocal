@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
+angular.module('nicocal').controller 'ReportsCtrl', ['$scope', 'Mood', 'Report', ($scope, Mood, Report) ->
   $scope.reports = []
 
   Mood.all (moods) ->
@@ -69,3 +69,4 @@ angular.module('nicocal').controller 'ReportsCtrl', ($scope, Mood, Report) ->
   }
 
   $scope.eventSources = [$scope.reports]
+  ]
