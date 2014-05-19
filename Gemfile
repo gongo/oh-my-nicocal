@@ -16,6 +16,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'grape'
 gem 'grape-jbuilder'
 gem 'font-awesome-sass'
+gem 'thin'
+gem 'foreman'
+
+group :production do
+  gem 'rails_12factor'
+  gem 'pg'
+end
 
 group :development do
   gem 'spring'
